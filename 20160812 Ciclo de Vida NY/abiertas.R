@@ -277,9 +277,9 @@ datos[,"BazUser"]<-FALSE
 for(i in 1:length(bancoAztecaUsers)){
   # i<-1
   hijito<- bancoAztecaUsers[i]
-    logico<- datos[,hijito]=="TRUE"
-    logico[is.na(logico)]<-FALSE
-    datos[logico,"BazUser"]<-TRUE
+  logico<- datos[,hijito]=="TRUE"
+  logico[is.na(logico)]<-FALSE
+  datos[logico,"BazUser"]<-TRUE
 }
 
 #################################
@@ -360,217 +360,129 @@ bandera4<-c("Total","P11.Env.os.de.dinero","P11.Pago.de.servicios..Tel.fono..A",
 
 
 
+# 
 
 
-nombresR(xx = datos,yy = "P2.4")[1:20]
 
-# wat <- frecuentator(fTtabla=datos,fTvariables="A3",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F)
+# Tengo que hacer vectores gigantes para limpiarlos y luego regresarlos a donde van
 
-reporte<-list(
-  A3=frecuentator(fTtabla=datos,fTvariables="A3",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  F1Genero=frecuentator(fTtabla=datos,fTvariables="F1Genero",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  NSE=frecuentator(fTtabla=datos,fTvariables="NSE",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  EdadRango=frecuentator(fTtabla=datos,fTvariables="Edad.Rango",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  Plaza=frecuentator(fTtabla=datos,fTvariables="Plaza",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  # Segmento=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)",]="Sí (Bancarizado)",],fTvariables="SegmentoBancarizados",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  cluster=frecuentator(fTtabla=datos,fTvariables="cluster",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  clusterB=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)",],fTvariables="clusterB",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  # ClusterVersusCluster=frecuentator(fTtabla=datos,fTvariables="cluster",fTlevels=T,fbanner="clusterB",fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  ####################  
-  A1=frecuentator(fTtabla=datos,fTvariables="A1",fTlevels=T,fbanner=bandera1),
-  A4=frecuentator(fTtabla=datos,fTvariables="A4",fTlevels=T,fbanner=bandera1),
-  A5=frecuentator(fTtabla=datos[datos$A4=="Casado(a)" | datos$A4=="Unión libre",],fTvariables="A5tiempoJuntos",fTlevels=T,fbanner=bandera1),
-  A6=frecuentator(fTtabla=datos,fTvariables="A6",fTlevels=T,fbanner=bandera1),
-  A7=frecuentator(fTtabla=datos[datos$A6=="Sí",],fTvariables="A7Hijos",fTlevels=T,fbanner=bandera1),
-  A8=frecuentator(fTtabla=datos[datos$A6=="Sí",],fTvariables="A8Hijos",fTlevels=T,fbanner=bandera1),
-  A9=frecuentator(fTtabla=datos[datos$A6=="Sí",],fTvariables=hijitosEdad,fTlevels=T,fbanner=bandera1),
-  A10=frecuentator(fTtabla=datos,fTvariables="A10",fTlevels=T,fbanner=bandera1),
-  A11=frecuentator(fTtabla=datos,fTvariables="A11",fTlevels=T,fbanner=bandera1),
-  ####################  
+# defino una función para exportar y juntar vectores
+exportarAbiertas <- function(xpa, xpb){
+  # xpa <- nombresR(datos,"P5")
+  # xpb <- "./abiertas/finalP5.csv"
   
-  P1Top=frecuentator(fTtabla=datos,fTvariables=misP1Top,fTlevels=F,fbanner=bandera1),
-  P1TopShare=frecuentator(fTtabla=datos,fTvariables=misP1TopShare,fTlevels=F,fbanner=bandera1),
-  P2ConocimientoTotal=frecuentator(fTtabla=datos,fTvariables=miConocimientoTotal,fTlevels=F,fbanner=bandera1),
-  P2UsadoAlgunaVez=frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "P2.1"),fTlevels=F,fbanner=bandera1),
-  P2UsadoUltimos6Meses=frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "P2.2"),fTlevels=F,fbanner=bandera1),
-  P2UsaConMayorFrecuencia=frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "P2.3"),fTlevels=F,fbanner=bandera1),
-  ####################
-  P2_4=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)",],fTvariables=nombresR(xx = datos,yy = "P2.4")[1:20],fTlevels=F,fbanner=bandera1)
-)
-####################
-listaP25 <- list()
-for(p25i in 1:nrow(misP2.5)){
-  # p25i <- 6
-  miProducto <- misP2.5[p25i,1]
-  misBancos <- unlist(misP2.5[p25i,-1])
-  listaP25[[p25i]] <- frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)" & datos[,miProducto]==TRUE,],fTvariables=misBancos,fTlevels=F,fbanner=bandera1)
+  subdatos <- datos[,xpa]
+  
+  finalV <- NULL
+  for(i in 1:length(subdatos)){
+    vector <- subdatos[,i]
+    vector <- as.character(vector)
+    finalV <- c(finalV,vector)
+  }
+  finalV <- unique(finalV)
+  
+  xpa <- finalV
+  write.csv(
+    xpa,
+    xpb,
+    row.names = F,
+    fileEncoding = "latin1"
+  )
 }
-names(listaP25) <- misP2.5$medio
-####################
-reporte2 <- list(
-  P3=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)",],fTvariables=nombresR(xx = datos,yy = "P3")[1:20],fTlevels=F,fbanner=bandera1)
+
+
+# P5
+exportarAbiertas(nombresR(datos,"P5"),"./abiertas/finalP5.csv")
+
+# P11.1
+exportarAbiertas(nombresR(datos,"P11.1"),"./abiertas/finalP111.csv")
+
+# P12.a
+exportarAbiertas(nombresR(datos,"P12.A"),"./abiertas/finalP12A.csv")
+
+# E15
+exportarAbiertas(nombresR(datos,"E15")[2:6],"./abiertas/finalE15.csv")
+
+# E16
+
+misE16 <- nombresR(datos,"E16")[2]
+finalV <- datos[,misE16]
+
+finalV <- unique(finalV)
+
+finalE16 <- finalV
+
+write.csv(
+  finalE16,
+  "./abiertas/finalE16.csv",row.names = F,fileEncoding = "latin1"
 )
-####################
-listaP4 <- list()
-for(p4i in 1:nrow(misP4)){
-  # p4i <- 6
-  miProducto <- misP4[p4i,1]
-  misBancos <- unlist(misP4[p4i,-1])
-  listaP4[[p4i]] <- frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)" & datos[,miProducto]==TRUE,],fTvariables=misBancos,fTlevels=F,fbanner=bandera1)
-}
-names(listaP4) <- misP4$medio
-####################
-# Para cada producto
-listaP6 <- list()
-for(p4i in 1:nrow(misP4)){
-  # p4i <- 2
-  miProducto <- misP4[p4i,1]
-  misBancos <- as.character(misP4[p4i,-1])
-  # Para cada banco...
-  for(p4t in 1:length(misBancos)){
-    # p4t<-5
-    miBanco<- misBancos[p4t]
-    ProductoBancoSub<-datos[datos$A3=="Sí (Bancarizado)" & datos[,miProducto]==TRUE & datos[,miBanco]==TRUE,]
-    if(nrow(ProductoBancoSub)>0){
-      #Sólo si tengo casos...
-      miTemp<-misP6[p4i,p4t+1]
-      if(sum(table(datos[,miTemp]))>0){
-        miTemp <- frecuentator(fTtabla=ProductoBancoSub,fTvariables=miTemp,fTlevels=T,fbanner=bandera1)
-        listaP6[[(length(listaP6)+1)]]<-miTemp
-        names(listaP6)[(length(listaP6))]<-paste(miProducto,miBanco,misP6[p4i,p4t+1],sep="_")        
-      }
+
+# E17
+exportarAbiertas(nombresR(datos,"E17")[2:6],"./abiertas/finalE17.csv")
+
+
+#·····························································································
+
+# Para preparar el limpiador, voy a simular resultados...
+
+# Pueden ser (o no) multirespuesta...
+
+list.files("./abiertas")
+
+catalogo <- read.csv(
+  "./abiertas/finalP5.csv" 
+)
+catalogo$limpio1 <- sample(letters[1:5],nrow(catalogo),replace = T)
+catalogo$limpio1 <- factor(catalogo$limpio1)
+
+catalogo$limpio2 <- sample(letters[1:5],nrow(catalogo),replace = T)
+catalogo$limpio2 <- factor(catalogo$limpio2)
+
+
+# Ya están simulados... ahora debo repasar TODAS las variables de E15...
+
+limpiatoR <- function(misDatos,misVaria,micatalog,misVariables){
+  # misDatos <- datos
+  # misVaria <- nombresR(datos,"P5")
+  # micatalog <- catalogo
+  # misVariables <- "Total"
+  
+  
+  fcatalogo <- NULL
+  for(pp in 1:length(misVaria)){
+    # Para cada variable tantas codificaciones hayan salido...
+    # pp <- 1
+    minimisVaria <- misVaria[pp]
+    for(ll in 2:length(micatalog)){
+      # Para cada codificación dentro de cada variable...
+      # ll <- 2
+      minimisVariaR <- paste("CL",minimisVaria,"_",(ll-1),sep="")
+      misDatos[,minimisVariaR] <- micatalog[match(misDatos[,minimisVaria],micatalog[,1]),ll]
+      fcatalogo <- c(fcatalogo,minimisVariaR)
     }
   }
-}
-####################
-# Para cada producto
-listaP6A <- list()
-for(p4i in 1:nrow(misP4)){
-  # p4i <- 1
-  miProducto <- misP4[p4i,1]
-  misBancos <- as.character(misP4[p4i,-1])
-  # Para cada banco...
-  for(p4t in 1:length(misBancos)){
-    # p4t<-2
-    miBanco<- misBancos[p4t]
-    miTemp<-misP6[p4i,p4t+1]    
-    # Dijo 1 o 2?
-    ProductoBancoSub<-datos[datos$A3=="Sí (Bancarizado)" & datos[,miProducto]==TRUE & datos[,miBanco]==TRUE & (datos[,miTemp]=="Folletos y/o volantes" | datos[,miTemp]=="Stands"),]
-    if(nrow(ProductoBancoSub)>0){
-      #Sólo si tengo casos...
-      miTemp<-misP6A[p4i,p4t]
-      if(sum(table(ProductoBancoSub[,miTemp]))>0){
-        miTemp <- frecuentator(fTtabla=ProductoBancoSub,fTvariables=miTemp,fTlevels=T,fbanner=bandera1)
-        listaP6A[[(length(listaP6A)+1)]]<-miTemp
-        names(listaP6A)[(length(listaP6A))]<-paste(miProducto,miBanco,misP6[p4i,p4t+1],misP6A[p4i,p4t],sep="_")        
-      }
-    }
-  }
-}
-####################
-reporte3 <- list(
-  P71=frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "P7")[1],fTlevels=T,fbanner=bandera1),
-  P72=frecuentator(fTtabla=datos[datos$P7=="Sí",],fTvariables=nombresR(xx = datos,yy = "P7.2")[1:13],fTlevels=F,fbanner=bandera1),
-  P73=frecuentator(fTtabla=datos[datos$BazUser==T,],fTvariables="P7.3",fTlevels=T,fbanner=bandera1),
-  P73=frecuentator(fTtabla=datos[datos$BazUser==T,],fTvariables=nombresR(xx = datos,yy = "P7.4")[1:13],fTlevels=F,fbanner=bandera1)
-)
-####################
-listaP8 <- list()
-misP8 <- nombresR(xx = datos,yy = "P8")
-for(mip8i in 1:length(misP8)){
-  miP8tempo <- frecuentator(fTtabla=datos,fTvariables=misP8[mip8i],fTlevels=T,fbanner=bandera1)
-  listaP8[[(length(listaP8)+1)]]<-miP8tempo
-  names(listaP8)[(length(listaP8))]<-misP8[mip8i]
-}
-####################
-listaP9 <- list()
-misP9 <- nombresR(xx = datos,yy = "P9")
-for(mip9i in 1:length(misP9)){
-  miP9tempo <- frecuentator(fTtabla=datos,fTvariables=misP9[mip9i],fTlevels=T,fbanner=bandera1)
-  listaP9[[(length(listaP9)+1)]]<-miP9tempo
-  names(listaP9)[(length(listaP9))]<-misP9[mip9i]
-}
-####################
-listaP10 <- list()
-misP10 <- nombresR(xx = datos,yy = "P10")
-for(mip10i in 1:length(misP10)){
-  miP10tempo <- frecuentator(fTtabla=datos,fTvariables=misP10[mip10i],fTlevels=T,fbanner=bandera1)
-  listaP10[[(length(listaP10)+1)]]<-miP10tempo
-  names(listaP10)[(length(listaP10))]<-misP10[mip10i]
-}
-####################
-reporte4 <- list(
-  P11=frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "P11")[1:26],fTlevels=F,fbanner=bandera1),
-  P114=frecuentator(fTtabla=datos[datos$BazUser==T,],fTvariables="P11.4",fTlevels=T,fbanner=bandera1),
-  P115=frecuentator(fTtabla=datos[datos$BazUser==T,],fTvariables="P11.5",fTlevels=T,fbanner=bandera1),
-  P12=frecuentator(fTtabla=datos,fTvariables="P12",fTlevels=T,fbanner=bandera1),
-  P13=frecuentator(fTtabla=datos,fTvariables="P13",fTlevels=T,fbanner=bandera1),
-  P13A=frecuentator(fTtabla=datos[datos$P13=="Sí",],fTvariables="P13.A",fTlevels=T,fbanner=bandera1),
-  P14=frecuentator(fTtabla=datos,fTvariables="P14",fTlevels=T,fbanner=bandera1),
-  P14A=frecuentator(fTtabla=datos[datos$P14=="Sí",],fTvariables="P14.A",fTlevels=T,fbanner=bandera1)
-)
-####################
-listaP15 <- list()
-misP15 <- nombresR(xx = datos,yy = "P15")
-for(mip15i in 1:length(misP15)){
-  miP15tempo <- frecuentator(fTtabla=datos,fTvariables=misP15[mip15i],fTlevels=T,fbanner=bandera1)
-  listaP15[[(length(listaP15)+1)]]<-miP15tempo
-  names(listaP15)[(length(listaP15))]<-misP15[mip15i]
-}
-####################
-
-
-
-
-nopl <- frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "P8"),fTlevels=F,fbanner=bandera1)
-
-
-####################
-################################################################################################
-################################################################################################
-reporteF <- c(
-    reporte,
-    listaP25,
-    reporte2,
-    listaP4,
-    listaP6,
-    listaP6A,
-    reporte3,
-    listaP8,
-    listaP9,
-    listaP10,
-    reporte4,
-    listaP15
-    )
-
-# reporteF <- reporte4
-##### Puedo hacer un data frame gigante?
-reporteFINAL <- data.frame()
-for(finali in 1:length(reporteF)){
-  
-  elTemporal <- reporteF[[finali]]
-  
-  elTemporal <- rbind(names(elTemporal),elTemporal)
-  
-  names(elTemporal) <- paste(LETTERS,1:length(elTemporal),sep="")
-  
-  elTemporal[1,1] <- names(reporteF)[finali]
-  
-  salto <- elTemporal[0,]
-  
-  elTemporal <- rbind(elTemporal,NA)
-
-  
-  reporteFINAL <- plyr::rbind.fill(reporteFINAL,elTemporal)
-  
+  return(misDatos[,c(misVariables,fcatalogo)])
 }
 
-write.csv(reporteFINAL, paste("./resultados/ReporteFinal.csv",sep = ""),fileEncoding = "Latin1",na = "")
+datosP5 <- limpiatoR(misDatos = datos,misVaria = nombresR(datos,"P5"),micatalog = catalogo,misVariables = "Total")
 
-# for(i in 1:length(reporteF)){
-#   write.csv(reporteF[[i]], paste("./resultados/",1000+i,"_",names(reporteF[i]),".csv",sep = ""),fileEncoding = "Latin1")
-# }
-################################################################################################
-################################################################################################
 
-getwd()
+
+
+
+str(catalogo)
+table(catalogo$limpio)
+
+
+
+
+datos[,minimisVariaR] <- micatalog[,3]
+
+
+
+
+
+
+levels(table(datos$P5.1))
+
+#·····························································································

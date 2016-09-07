@@ -1,6 +1,10 @@
+
+
 #### PRIMERO CORRER LAS FUNCIONES EN FRECUENTATOR
 
 # 
+library(brostatistics)
+
 
 datos<- readRDS(
   "datos.rds"
@@ -9,6 +13,8 @@ datos<- readRDS(
 baterias<- readRDS(
   "baterias.rds"
 )
+
+
 
 datos <- cbind(datos,data.frame(cluster=baterias$cluster))
 datos <- cbind(datos,data.frame(clusterB=baterias$clusterB))
@@ -134,8 +140,8 @@ hijitosEdad <- c("A9Primero","A9Segundo","A9Tercero","A9Cuarto","A9Quinto","A9Se
 
 ######################## P1
 
-misP1Top <- nombresR(x = datos,ll = "P1")[1:14]
-misP1OM <- nombresR(x = datos,ll = "P1")[20:33]
+misP1Top <- nombresR(datos,"P1")[1:14]
+misP1OM <- nombresR(datos,"P1")[20:33]
 
 fullP <- data.frame(misP1Top,misP1OM,stringsAsFactors = F)
 
@@ -165,7 +171,7 @@ table(datos$P1.BanamexTopShare)
 
 ######################## P2
 
-misP2 <- nombresR(x = datos,ll = "P2")[1:14]
+misP2 <- nombresR(datos,"P2")[1:14]
 fullP <- data.frame(misP1Top,misP1OM,misP2,stringsAsFactors = F)
 listaNombres<-list()
 for(i in 1:nrow(fullP)){
@@ -192,71 +198,71 @@ miConocimientoTotal <- names(listaNombres)
 table(datos$P1.BanamexConocimientoTotal)
 
 ######################## P2.5
-nombresR(x = datos,ll = "P2.5.")
+nombresR(xx = datos,yy = "P2.5.")
 
 misP2.5 <- data.frame(
-  medio =nombresR(x = datos,ll = "P2.4")[1:19],
-  bancoAzteca=  nombresR(x = datos,ll = "P2.5.Banco.Azteca"),
-  banamex=  nombresR(x = datos,ll = "P2.5.Banamex"),
-  banorte=nombresR(x = datos,ll = "P2.5.Banorte"),
-  bancomer=nombresR(x = datos,ll = "P2.5.Bancomer"),
-  hsbc=nombresR(x = datos,ll = "P2.5.HSBC"),
-  santander=nombresR(x = datos,ll = "P2.5.Santander"),
-  scotiabank=nombresR(x = datos,ll = "P2.5.Scotiabank"),
-  coppel=nombresR(x = datos,ll = "P2.5.Coppel"),
-  otro=nombresR(x = datos,ll = "P2.5.Otro..Especificar"),
+  medio =nombresR(xx = datos,yy = "P2.4")[1:19],
+  bancoAzteca=  nombresR(xx = datos,yy = "P2.5.Banco.Azteca"),
+  banamex=  nombresR(xx = datos,yy = "P2.5.Banamex"),
+  banorte=nombresR(xx = datos,yy = "P2.5.Banorte"),
+  bancomer=nombresR(xx = datos,yy = "P2.5.Bancomer"),
+  hsbc=nombresR(xx = datos,yy = "P2.5.HSBC"),
+  santander=nombresR(xx = datos,yy = "P2.5.Santander"),
+  scotiabank=nombresR(xx = datos,yy = "P2.5.Scotiabank"),
+  coppel=nombresR(xx = datos,yy = "P2.5.Coppel"),
+  otro=nombresR(xx = datos,yy = "P2.5.Otro..Especificar"),
   stringsAsFactors = F
 )
 
 ######################## P4
-nombresR(x = datos,ll = "P4")
+nombresR(xx = datos,yy = "P4")
 
 misP4 <- data.frame(
-  medio =nombresR(x = datos,ll = "P3")[1:19],
-  bancoAzteca=  nombresR(x = datos,ll = "P4.Banco.Azteca"),
-  banamex=  nombresR(x = datos,ll = "P4.Banamex"),
-  banorte=nombresR(x = datos,ll = "P4.Banorte"),
-  bancomer=nombresR(x = datos,ll = "P4.Bancomer"),
-  hsbc=nombresR(x = datos,ll = "P4.HSBC"),
-  santander=nombresR(x = datos,ll = "P4.Santander"),
-  scotiabank=nombresR(x = datos,ll = "P4.Scotiabank"),
-  coppel=nombresR(x = datos,ll = "P4.Coppel"),
-  otro=nombresR(x = datos,ll = "P4.Otro..Especificar"),
+  medio =nombresR(xx = datos,yy = "P3")[1:19],
+  bancoAzteca=  nombresR(xx = datos,yy = "P4.Banco.Azteca"),
+  banamex=  nombresR(xx = datos,yy = "P4.Banamex"),
+  banorte=nombresR(xx = datos,yy = "P4.Banorte"),
+  bancomer=nombresR(xx = datos,yy = "P4.Bancomer"),
+  hsbc=nombresR(xx = datos,yy = "P4.HSBC"),
+  santander=nombresR(xx = datos,yy = "P4.Santander"),
+  scotiabank=nombresR(xx = datos,yy = "P4.Scotiabank"),
+  coppel=nombresR(xx = datos,yy = "P4.Coppel"),
+  otro=nombresR(xx = datos,yy = "P4.Otro..Especificar"),
   stringsAsFactors = F
 )
 
 # matrix(data = misP2.5,byrow = F,nrow = 10)
 ######################## P6
-nombresR(x = datos,ll = "P6.Servicio")
+nombresR(xx = datos,yy = "P6.Servicio")
 
 misP6 <- data.frame(
-  medio =nombresR(x = datos,ll = "P3")[1:19],
-  bancoAzteca=  nombresR(x = datos,ll = "P6.Servicio.BancoAzteca")[seq(1,38,by = 2)],
-  banamex=  nombresR(x = datos,ll = "P6.Servicio.Banamex")[seq(1,38,by = 2)],
-  banorte=nombresR(x = datos,ll = "P6.Servicio.Banorte")[seq(1,38,by = 2)],
-  bancomer=nombresR(x = datos,ll = "P6.Servicio.Bancomer")[seq(1,38,by = 2)],
-  hsbc=nombresR(x = datos,ll = "P6.Servicio.Hsbc"),
-  santander=nombresR(x = datos,ll = "P6.Servicio.Santander")[seq(1,38,by = 2)],
-  scotiabank=nombresR(x = datos,ll = "P6.Servicio.Scotiabank")[seq(1,38,by = 2)],
-  coppel=nombresR(x = datos,ll = "P6.Servicio.Coppel")[seq(1,38,by = 2)],
-  otro=nombresR(x = datos,ll = "P6.Servicio.OTRO"),
+  medio =nombresR(xx = datos,yy = "P3")[1:19],
+  bancoAzteca=  nombresR(xx = datos,yy = "P6.Servicio.BancoAzteca")[seq(1,38,by = 2)],
+  banamex=  nombresR(xx = datos,yy = "P6.Servicio.Banamex")[seq(1,38,by = 2)],
+  banorte=nombresR(xx = datos,yy = "P6.Servicio.Banorte")[seq(1,38,by = 2)],
+  bancomer=nombresR(xx = datos,yy = "P6.Servicio.Bancomer")[seq(1,38,by = 2)],
+  hsbc=nombresR(xx = datos,yy = "P6.Servicio.Hsbc"),
+  santander=nombresR(xx = datos,yy = "P6.Servicio.Santander")[seq(1,38,by = 2)],
+  scotiabank=nombresR(xx = datos,yy = "P6.Servicio.Scotiabank")[seq(1,38,by = 2)],
+  coppel=nombresR(xx = datos,yy = "P6.Servicio.Coppel")[seq(1,38,by = 2)],
+  otro=nombresR(xx = datos,yy = "P6.Servicio.OTRO"),
   stringsAsFactors = F
 )
 
 
 ######################## P6
-nombresR(x = datos,ll = "P6A")
+nombresR(xx = datos,yy = "P6A")
 
 misP6A <- data.frame(
-  bancoAzteca=  nombresR(x = datos,ll = "P6A.BancoAzteca")[seq(1,38,by = 2)],
-  banamex=  nombresR(x = datos,ll = "P6A.Banamex"),
-  banorte=nombresR(x = datos,ll = "P6A.Banorte")[seq(1,38,by = 2)],
-  bancomer=nombresR(x = datos,ll = "P6A.Bancomer")[seq(1,38,by = 2)],
-  hsbc=nombresR(x = datos,ll = "P6A.Hsbc"),
-  santander=nombresR(x = datos,ll = "P6A.Santander")[seq(1,38,by = 2)],
-  scotiabank=nombresR(x = datos,ll = "P6A.Scotiabank")[seq(1,38,by = 2)],
-  coppel=nombresR(x = datos,ll = "P6A.Coppel")[seq(1,38,by = 2)],
-  otro=nombresR(x = datos,ll = "P6A.otro"),
+  bancoAzteca=  nombresR(xx = datos,yy = "P6A.BancoAzteca")[seq(1,38,by = 2)],
+  banamex=  nombresR(xx = datos,yy = "P6A.Banamex"),
+  banorte=nombresR(xx = datos,yy = "P6A.Banorte")[seq(1,38,by = 2)],
+  bancomer=nombresR(xx = datos,yy = "P6A.Bancomer")[seq(1,38,by = 2)],
+  hsbc=nombresR(xx = datos,yy = "P6A.Hsbc"),
+  santander=nombresR(xx = datos,yy = "P6A.Santander")[seq(1,38,by = 2)],
+  scotiabank=nombresR(xx = datos,yy = "P6A.Scotiabank")[seq(1,38,by = 2)],
+  coppel=nombresR(xx = datos,yy = "P6A.Coppel")[seq(1,38,by = 2)],
+  otro=nombresR(xx = datos,yy = "P6A.otro"),
   stringsAsFactors = F
 )
 
@@ -352,13 +358,15 @@ bandera2<-c("Total","P2.4.Tarjeta.de.n.mina","P2.4.Tarjeta.de.d.bito...Ahorro...
 bandera3<-c("Total","P2.4.Tarjeta.de.n.mina","P2.4.Tarjeta.de.d.bito...Ahorro...C","P2.4.Tarjeta.de.cr.dito","P2.4.Tarjeta.Azteca","P2.4.Cuenta.de.ahorro","P2.4.Cuenta..de.cheques","P2.4.Inversiones","P2.4.Seguros","P2.4.Pr.stamo.Personal","P2.4.Cr.dito.en.tienda.para.compra.","P2.4.Cr.dito.Hipotecario","P2.4.Cr.dito.Automotriz","P2.4.Cr.dito.para.desarrollo.de.Neg","P2.4.Cr.dito.Prendario..Empe.o","P2.4.Cr.dito.Grupal","P2.4.Pr.stamo.de.nomina","P2.4.Otro.cr.dito.o.pr.stamo.por.pa","P2.4.Tarjeta.departamental","P2.4.Cr.dito.de.motocicleta")
 bandera4<-c("Total","P11.Env.os.de.dinero","P11.Pago.de.servicios..Tel.fono..A","P11.Banca.m.vil","P11.Tarjeta.de.cr.dito","P11.Tarjeta..Azteca","P11.Cuenta.de.cheques","P11.Pr.stamos.personales.para.viaj","P11.Pr.stamos.personales.para.educ","P11.Pr.stamos.personales.para.mejo","P11.Pr.stamos.personales.para.fies","P11.Seguro.de.vida","P11.Seguro.de.m.dico","P11.Seguro.para.la.casa","P11.Seguro.de.auto","P11.Seguro.de.gastos.funerarios","P11.Ahorro.para.el.futuro","P11.Ahorro.para.eventos.sociales","P11.Ahorro.para.emergencias","P11.Ahorro.planeado.cuenta.de.ahor","P11.Inversi.n.para.el.negocio","P11.Pr.stamo.hipotecario","P11.Cr.dito.automotriz","P11.Pr.stamos.de.nomina","P11.Pr.stamo.para.gastos.personale","P11.Tarjeta.de.debito","P11.OTRO...Especificar")
 
+
+
 # 
 datos$E16 <- factor(datos$E16)
 
 
 
 
-nombresR(x = datos,ll = "E1.")[37:41]
+nombresR(datos,"E1.")[37:41]
 
 # Tiene false en 2 o en 3? 
 
@@ -403,19 +411,19 @@ table(datos$E10A.Interntet)
 # nrow(datos[datos$E2==3])
 
 reporteF<-list(
-  E1=frecuentator(fTtabla=datos,fTvariables=nombresR(x = datos,ll = "E1.")[37:41],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E1=frecuentator(fTtabla=datos,fTvariables=nombresR(xx = datos,yy = "E1.")[37:41],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E2=frecuentator(fTtabla=datos,fTvariables="E2",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E3=frecuentator(fTtabla=datos,fTvariables="E3",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E4=frecuentator(fTtabla=datos,fTvariables="E4",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E5=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables=nombresR(x = datos,ll = "E5.")[37:45],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E6=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables=nombresR(x = datos,ll = "E6.")[37:43],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E7=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables=nombresR(x = datos,ll = "E7.")[37:41],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E5=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables=nombresR(xx = datos,yy = "E5.")[37:45],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E6=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables=nombresR(xx = datos,yy = "E6.")[37:43],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E7=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables=nombresR(xx = datos,yy = "E7.")[37:41],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E8=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3],],fTvariables="E8",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E9=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3] & datos$E8==levels(datos$E8)[1],],fTvariables=nombresR(x = datos,ll = "E9")[39:47],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E10=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3] & datos$E8==levels(datos$E8)[1],],fTvariables=nombresR(x = datos,ll = "E10")[2:10],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E9=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3] & datos$E8==levels(datos$E8)[1],],fTvariables=nombresR(xx = datos,yy = "E9")[39:47],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E10=frecuentator(fTtabla=datos[datos$E2==levels(datos$E2)[3] & datos$E8==levels(datos$E8)[1],],fTvariables=nombresR(xx = datos,yy = "E10")[2:10],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E10A=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)",],fTvariables="E10A.Interntet",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E9A=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)" & datos$E10A.Interntet=="Sí",],fTvariables=nombresR(x = datos,ll = "E9.Internet")[1:9],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
-  E10AA=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)" & datos$E10A.Interntet=="Sí",],fTvariables=nombresR(x = datos,ll = "E10.Internet"),fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E9A=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)" & datos$E10A.Interntet=="Sí",],fTvariables=nombresR(xx = datos,yy = "E9.Internet")[1:9],fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
+  E10AA=frecuentator(fTtabla=datos[datos$A3=="Sí (Bancarizado)" & datos$E10A.Interntet=="Sí",],fTvariables=nombresR(xx = datos,yy = "E10.Internet"),fTlevels=F,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E11=frecuentator(fTtabla=datos,fTvariables="E11",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E12=frecuentator(fTtabla=datos,fTvariables="E12",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
   E13=frecuentator(fTtabla=datos[datos$E12=="Sí",],fTvariables="E13",fTlevels=T,fbanner=bandera1,fTponderador=NULL,fTsobreQuien= NULL,fTtotal=T,fTprop=F),
@@ -450,4 +458,4 @@ for(finali in 1:length(reporteF)){
   
 }
 
-write.csv(reporteFINAL, paste("./resultados/ReporteFinal.csv",sep = ""),fileEncoding = "Latin1",na = "")
+write.csv(reporteFINAL, paste("./resultados/ReporteFinal Segundo.csv",sep = ""),fileEncoding = "Latin1",na = "")
