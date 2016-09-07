@@ -362,16 +362,15 @@ bandera4<-c("Total","P11.Env.os.de.dinero","P11.Pago.de.servicios..Tel.fono..A",
 
 # 
 
+# brostatistics
 
 
-# Tengo que hacer vectores gigantes para limpiarlos y luego regresarlos a donde van
 
-# defino una función para exportar y juntar vectores
-exportarAbiertas <- function(xpa, xpb){
+exportarAbiertas <- function(xpa, xpb, xpc){
   # xpa <- nombresR(datos,"P5")
   # xpb <- "./abiertas/finalP5.csv"
-  
-  subdatos <- datos[,xpa]
+  # xpc <- datos
+  subdatos <- xpc[,xpa]
   
   finalV <- NULL
   for(i in 1:length(subdatos)){
@@ -388,6 +387,28 @@ exportarAbiertas <- function(xpa, xpb){
     row.names = F,
     fileEncoding = "latin1"
   )
+}
+
+importarAbiertas <- function(misDatos,misVaria,micatalog,misVariablesFinales){
+  # misDatos <- datos
+  # misVaria <- nombresR(datos,"P5")
+  # micatalog <- catalogo
+  # misVariablesFinales <- "Total"
+  
+  fcatalogo <- NULL
+  for(pp in 1:length(misVaria)){
+    # Para cada variable tantas codificaciones hayan salido...
+    # pp <- 1
+    minimisVaria <- misVaria[pp]
+    for(ll in 2:length(micatalog)){
+      # Para cada codificación dentro de cada variable...
+      # ll <- 2
+      minimisVariaR <- paste("CL",minimisVaria,"_",(ll-1),sep="")
+      misDatos[,minimisVariaR] <- micatalog[match(misDatos[,minimisVaria],micatalog[,1]),ll]
+      fcatalogo <- c(fcatalogo,minimisVariaR)
+    }
+  }
+  return(misDatos[,c(misVariablesFinales,fcatalogo)])
 }
 
 
@@ -420,7 +441,6 @@ write.csv(
 # E17
 exportarAbiertas(nombresR(datos,"E17")[2:6],"./abiertas/finalE17.csv")
 
-
 #·····························································································
 
 # Para preparar el limpiador, voy a simular resultados...
@@ -438,51 +458,9 @@ catalogo$limpio1 <- factor(catalogo$limpio1)
 catalogo$limpio2 <- sample(letters[1:5],nrow(catalogo),replace = T)
 catalogo$limpio2 <- factor(catalogo$limpio2)
 
+#·····························································································
 
-# Ya están simulados... ahora debo repasar TODAS las variables de E15...
-
-limpiatoR <- function(misDatos,misVaria,micatalog,misVariables){
-  # misDatos <- datos
-  # misVaria <- nombresR(datos,"P5")
-  # micatalog <- catalogo
-  # misVariables <- "Total"
-  
-  
-  fcatalogo <- NULL
-  for(pp in 1:length(misVaria)){
-    # Para cada variable tantas codificaciones hayan salido...
-    # pp <- 1
-    minimisVaria <- misVaria[pp]
-    for(ll in 2:length(micatalog)){
-      # Para cada codificación dentro de cada variable...
-      # ll <- 2
-      minimisVariaR <- paste("CL",minimisVaria,"_",(ll-1),sep="")
-      misDatos[,minimisVariaR] <- micatalog[match(misDatos[,minimisVaria],micatalog[,1]),ll]
-      fcatalogo <- c(fcatalogo,minimisVariaR)
-    }
-  }
-  return(misDatos[,c(misVariables,fcatalogo)])
-}
 
 datosP5 <- limpiatoR(misDatos = datos,misVaria = nombresR(datos,"P5"),micatalog = catalogo,misVariables = "Total")
 
 
-
-
-
-str(catalogo)
-table(catalogo$limpio)
-
-
-
-
-datos[,minimisVariaR] <- micatalog[,3]
-
-
-
-
-
-
-levels(table(datos$P5.1))
-
-#·····························································································
