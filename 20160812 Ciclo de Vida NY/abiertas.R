@@ -361,68 +361,38 @@ bandera4<-c("Total","P11.Env.os.de.dinero","P11.Pago.de.servicios..Tel.fono..A",
 
 
 # 
+######################## P4
+nombresR(xx = datos,yy = "P5")
+
+misP5 <- data.frame(
+  medio =nombresR(xx = datos,yy = "P3")[1:19],
+  bancoAzteca=  c("P5.1","P5.2","P5.3","P5.4","P5.5","P5.6","P5.7","P5.8","P5.9","P5.10","P5.11","P5.12","P5.13","P5.14","P5.15","P5.16","P5.17","P5.18","P5.19"),
+  banamex=  nombresR(xx = datos,yy = "P5.Banamex"),
+  banorte= nombresR(xx = datos,yy = "P5.banorte"),
+  bancomer= nombresR(xx = datos,yy = "P5.bancomer"),
+  hsbc= nombresR(xx = datos,yy = "P5.HSBC"),
+  santander= nombresR(xx = datos,yy = "P5.Santaner"),
+  scotiabank= nombresR(xx = datos,yy = "P5.Scotiabank"),
+  coppel= nombresR(xx = datos,yy = "P5.coppel"),
+  otro= nombresR(xx = datos,yy = "P5.Otro"),
+  stringsAsFactors = F
+)
+
+
 
 # brostatistics
 
-
-
-exportarAbiertas <- function(xpa, xpb, xpc){
-  # xpa <- nombresR(datos,"P5")
-  # xpb <- "./abiertas/finalP5.csv"
-  # xpc <- datos
-  subdatos <- xpc[,xpa]
-  
-  finalV <- NULL
-  for(i in 1:length(subdatos)){
-    vector <- subdatos[,i]
-    vector <- as.character(vector)
-    finalV <- c(finalV,vector)
-  }
-  finalV <- unique(finalV)
-  
-  xpa <- finalV
-  write.csv(
-    xpa,
-    xpb,
-    row.names = F,
-    fileEncoding = "latin1"
-  )
-}
-
-importarAbiertas <- function(misDatos,misVaria,micatalog,misVariablesFinales){
-  # misDatos <- datos
-  # misVaria <- nombresR(datos,"P5")
-  # micatalog <- catalogo
-  # misVariablesFinales <- "Total"
-  
-  fcatalogo <- NULL
-  for(pp in 1:length(misVaria)){
-    # Para cada variable tantas codificaciones hayan salido...
-    # pp <- 1
-    minimisVaria <- misVaria[pp]
-    for(ll in 2:length(micatalog)){
-      # Para cada codificación dentro de cada variable...
-      # ll <- 2
-      minimisVariaR <- paste("CL",minimisVaria,"_",(ll-1),sep="")
-      misDatos[,minimisVariaR] <- micatalog[match(misDatos[,minimisVaria],micatalog[,1]),ll]
-      fcatalogo <- c(fcatalogo,minimisVariaR)
-    }
-  }
-  return(misDatos[,c(misVariablesFinales,fcatalogo)])
-}
-
-
 # P5
-exportarAbiertas(nombresR(datos,"P5"),"./abiertas/finalP5.csv")
+exportarAbiertas(datos,nombresR(datos,"P5"),"./abiertas/finalP5.csv")
 
 # P11.1
-exportarAbiertas(nombresR(datos,"P11.1"),"./abiertas/finalP111.csv")
+exportarAbiertas(datos,nombresR(datos,"P11.1"),"./abiertas/finalP111.csv")
 
 # P12.a
-exportarAbiertas(nombresR(datos,"P12.A"),"./abiertas/finalP12A.csv")
+exportarAbiertas(datos,nombresR(datos,"P12.A"),"./abiertas/finalP12A.csv")
 
 # E15
-exportarAbiertas(nombresR(datos,"E15")[2:6],"./abiertas/finalE15.csv")
+exportarAbiertas(datos,nombresR(datos,"E15")[2:6],"./abiertas/finalE15.csv")
 
 # E16
 
@@ -439,28 +409,134 @@ write.csv(
 )
 
 # E17
-exportarAbiertas(nombresR(datos,"E17")[2:6],"./abiertas/finalE17.csv")
+exportarAbiertas(datos,nombresR(datos,"E17")[2:6],"./abiertas/finalE17.csv")
 
 #·····························································································
 
-# Para preparar el limpiador, voy a simular resultados...
+# # Para preparar el limpiador, voy a simular resultados...
+# 
+# # Pueden ser (o no) multirespuesta...
+# 
+# list.files("./abiertas")
+# 
+# catalogo <- read.csv("./abiertas/finalP5.csv")
+# catalogo$limpio1 <- sample(letters[1:5],nrow(catalogo),replace = T)
+# catalogo$limpio1 <- factor(catalogo$limpio1)
+# 
+# catalogo$limpio2 <- sample(letters[1:5],nrow(catalogo),replace = T)
+# catalogo$limpio2 <- factor(catalogo$limpio2)
 
-# Pueden ser (o no) multirespuesta...
+#·····························································································
 
 list.files("./abiertas")
 
-catalogo <- read.csv(
-  "./abiertas/finalP5.csv" 
+datosE15 <- importarAbiertas(misDatos = datos,misVaria = nombresR(datos,"E15")[2:6],micatalog = read.csv("./abiertas/finalE15VF.csv"), misVariablesFinales = c(bandera1,"E12"))
+datosE15 <- frecuentator(fTtabla = datosE15[datosE15$E12=="Sí",],fTvariables = names(datosE15)[-match(c(bandera1,"E12"), names(datosE15))],fTlevels = T,fbanner = bandera1)
+
+datosE16 <- importarAbiertas(misDatos = datos,misVaria = "E16",micatalog = read.csv("./abiertas/finalE16VF.csv"), misVariablesFinales = c(bandera1,"E12"))
+datosE16 <- frecuentator(fTtabla = datosE16[datosE16$E12=="Sí",],fTvariables = "CLE16_1",fTlevels = T,fbanner = bandera1)
+
+datosE17 <- importarAbiertas(misDatos = datos,misVaria = nombresR(datos,"E17")[2:6],micatalog = read.csv("./abiertas/finalE17VF.csv"), misVariablesFinales = c(bandera1,"E12"))
+datosE17 <- frecuentator(fTtabla = datosE17[datosE17$E12=="Sí",],fTvariables = names(datosE17)[-match(c(bandera1,"E12"), names(datosE17))],fTlevels = T,fbanner = bandera1)
+
+reporte <- list(
+  datosE15,
+  datosE16,
+  datosE17
 )
-catalogo$limpio1 <- sample(letters[1:5],nrow(catalogo),replace = T)
-catalogo$limpio1 <- factor(catalogo$limpio1)
 
-catalogo$limpio2 <- sample(letters[1:5],nrow(catalogo),replace = T)
-catalogo$limpio2 <- factor(catalogo$limpio2)
+####################
+# Para cada producto
+listaP5 <- list()
+for(p4i in 1:nrow(misP4)){
+  # p4i <- 2
+  miProducto <- misP4[p4i,1]
+  misBancos <- as.character(misP4[p4i,-1])
+  # Para cada banco...
+  for(p4t in 1:length(misBancos)){
+    # p4t<-5
+    miBanco<- misBancos[p4t]
+    ProductoBancoSub<-datos[datos$A3=="Sí (Bancarizado)" & datos[,miProducto]==TRUE & datos[,miBanco]==TRUE,]
+    if(nrow(ProductoBancoSub)>0){
+      #Sólo si tengo casos...
+      miTemp<-misP5[p4i,p4t+1]
+      if(nrow(table(datos[,miTemp]))>1){
+        
+        datosP5 <- importarAbiertas(misDatos = ProductoBancoSub,misVaria = miTemp,micatalog = read.csv("./abiertas/finalP5VF.csv"), misVariablesFinales = c(bandera1))
+        datosP5 <- frecuentator(fTtabla = datosP5,fTvariables = names(datosP5)[-match(c(bandera1), names(datosP5))],fTlevels = T,fbanner = bandera1)
+        listaP5[[(length(listaP5)+1)]]<-datosP5
+        names(listaP5)[(length(listaP5))]<-paste(miProducto,miBanco,misP5[p4i,p4t+1],sep="_")        
+      }
+    }
+  }
+}
+####################
+####################
+# Para cada producto
 
-#·····························································································
+nombresR(datos,"P12.A")
+banquitos <- levels(datos$P12)
+listaP12 <- list()
+for(pi in 1:length(banquitos)){
+  # pi <- 1
+  miProducto <- banquitos[pi]
+  ProductoBancoSub<-datos[datos$P12==miProducto,]
+  # Para cada banco...
+        datosP12 <- importarAbiertas(misDatos = ProductoBancoSub,misVaria = nombresR(datos,"P12.A"),micatalog = read.csv("./abiertas/finalP12AVF.csv",fileEncoding = "UTF-8"), misVariablesFinales = c(bandera1))
+        datosP12 <- frecuentator(fTtabla = datosP12,fTvariables = names(datosP12)[-match(c(bandera1), names(datosP12))],fTlevels = T,fbanner = bandera1)
+        listaP12[[(length(listaP12)+1)]]<-datosP12
+        names(listaP12)[(length(listaP12))]<-paste(miProducto,sep="_")        
+}
+####################
 
+####################
+####################
+# Para cada producto
 
-datosP5 <- limpiatoR(misDatos = datos,misVaria = nombresR(datos,"P5"),micatalog = catalogo,misVariables = "Total")
+nombresR(datos,"P11")
+respuestitas <- nombresR(xx = datos,yy = "P11")[1:26]
+respuestitas2 <- nombresR(xx = datos,yy = "P11")[seq(33,183,6)]
+listaP11 <- list()
+for(pi in 1:length(respuestitas)){
+  # pi <- 9
+  miProducto <- respuestitas[pi]
+  miProducto2 <- respuestitas2[pi]
+  ProductoBancoSub<-datos[datos[,miProducto]=="TRUE",]
+  # Para cada banco...
+  datosP11 <- importarAbiertas(misDatos = ProductoBancoSub,misVaria = miProducto2,micatalog = read.csv("./abiertas/finalP111VF.csv"), misVariablesFinales = c(bandera1))
+  datosP11 <- frecuentator(fTtabla = datosP11,fTvariables = names(datosP11)[-match(c(bandera1), names(datosP11))],fTlevels = T,fbanner = bandera1)
+  listaP11[[(length(listaP11)+1)]]<-datosP11
+  names(listaP11)[(length(listaP11))]<-paste(miProducto,sep="_")        
+}
+####################
 
+# Ok hay un ...algo chistoso. Excel corrige los errores( que detecta)y por esa razón, estríctamente hablando... no son lo mismo
 
+reporteF <- c(
+  reporte,
+  listaP5
+)
+
+# reporteF <- listaP11
+##### Puedo hacer un data frame gigante?
+reporteFINAL <- data.frame()
+for(finali in 1:length(reporteF)){
+  
+  elTemporal <- reporteF[[finali]]
+  
+  elTemporal <- rbind(names(elTemporal),elTemporal)
+  
+  names(elTemporal) <- paste(LETTERS,1:length(elTemporal),sep="")
+  
+  elTemporal[1,1] <- names(reporteF)[finali]
+  
+  salto <- elTemporal[0,]
+  
+  elTemporal <- rbind(elTemporal,NA)
+  
+  
+  reporteFINAL <- plyr::rbind.fill(reporteFINAL,elTemporal)
+  
+}
+
+write.csv(reporteFINAL, paste("./resultados/ReporteFinalAbiertasP11.csv",sep = ""),fileEncoding = "Latin1",na = "")
