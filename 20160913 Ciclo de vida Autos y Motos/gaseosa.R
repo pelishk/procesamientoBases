@@ -5,9 +5,9 @@ gaseosa <- function(xfile, yfile1){
   # Donde
   # xfile Es el .csv
   # yfile Es el excel que baja de soda
-  xfile <- "CICLO DE VIDA DENTRO DEL HOGAR AUTOS_MOTOS 13-09-2016 18-23-09.csv"
-  yfile <- "CICLO DE VIDA DENTRO DEL HOGAR AUTOS_MOTOS_DataMap_13-09-2016 18_24_04.xlsx"
-  
+  # xfile <- "CICLO DE VIDA DENTRO DEL HOGAR AUTOS_MOTOS 13-09-2016 18-23-09.csv"
+  # yfile <- "CICLO DE VIDA DENTRO DEL HOGAR AUTOS_MOTOS_DataMap_13-09-2016 18_24_04.xlsx"
+  # 
   #########################
   # Previos...
   

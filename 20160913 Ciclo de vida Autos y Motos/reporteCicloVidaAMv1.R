@@ -1,4 +1,4 @@
-devtools::install_github("brostatistics","pelishk")
+# devtools::install_github("brostatistics","pelishk")
 library(dplyr)
 library(brostatistics)
 library(sjmisc)
@@ -58,10 +58,13 @@ bandera1 <- c("Total","F1Genero","NSE","Edad_Rango","Plaza")
 nombresR(datos,"11")
 names(datos)[1:100]
 
-table(
+sum(table(
   datos$P10
-)
+))
 datos[datos$P10=="Automóvil",]
+
+
+
 
 
 resultados <- list(
@@ -76,6 +79,8 @@ resultados <- list(
   P12 = frecuentator(fTtabla = datos,fTvariables = "A6",fTlevels = T,fbanner = bandera1),
   P14 = frecuentator(fTtabla = datos,fTvariables = "A11",fTlevels = T,fbanner = bandera1)
 )
+
+
 exportator(resultados, "./resultados/resultadosPrimeros.csv")
 
 
@@ -83,6 +88,7 @@ resultadosAutos <- list(
   P10 = frecuentator(fTtabla = datos,fTvariables = "P10",fTlevels = T,fbanner = bandera1),
   P15Autos = frecuentator(fTtabla = datos[datos$P10=="Automóvil",],fTvariables = nombresR(datos,"Rr_P15_2"),fTlevels = F,fbanner = bandera1)
 )
+
 exportator(resultadosAutos, "./resultados/resultadosAutos.csv")
 
 
